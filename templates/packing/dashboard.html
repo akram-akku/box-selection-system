@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | BoxFit{% endblock %}
+{% block content %}
+<section class="hero p-4 p-md-5 mb-4"><h1 class="display-6 fw-bold">Smart box selection</h1><p class="mb-0">Find a safe, cost-effective shipping box for each order.</p></section>
+<div class="row g-3 mb-4">
+  <div class="col-md-4"><div class="card p-3"><div class="muted">Products</div><div class="fs-2 fw-bold">{{ product_count }}</div></div></div>
+  <div class="col-md-4"><div class="card p-3"><div class="muted">Shipping boxes</div><div class="fs-2 fw-bold">{{ box_count }}</div></div></div>
+  <div class="col-md-4"><div class="card p-3"><div class="muted">Recent orders</div><div class="fs-2 fw-bold">{{ orders|length }}</div></div></div>
+</div>
+<div class="card p-4 mb-4"><h2 class="h5">Recommend a box</h2><p class="muted">Choose an order to evaluate its item dimensions, orientations and total weight.</p><a class="btn btn-primary" href="{% url 'recommend' %}">Start recommendation</a></div>
+<div class="card p-4"><h2 class="h5">Recent orders</h2>
+{% if orders %}<div class="table-responsive"><table class="table align-middle"><thead><tr><th>Reference</th><th>Created</th></tr></thead><tbody>{% for order in orders %}<tr><td>{{ order.reference }}</td><td>{{ order.created_at|date:"d M Y, H:i" }}</td></tr>{% endfor %}</tbody></table></div>
+{% else %}<p class="muted mb-0">No orders yet. Add products, boxes and orders in the admin panel.</p>{% endif %}
+</div>
+{% endblock %}
